@@ -59,12 +59,16 @@ public class StudentGraphicUserInterface extends javax.swing.JFrame {
 
         jLabel5.setText("Average");
 
+        txtname.setEditable(false);
         txtname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        txttest1.setEditable(false);
         txttest1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        txttest2.setEditable(false);
         txttest2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        txttest3.setEditable(false);
         txttest3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txttest3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,12 +156,10 @@ public class StudentGraphicUserInterface extends javax.swing.JFrame {
                             .addComponent(lblcount, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel7)
                             .addComponent(jButton3))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblcurrentindex, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblcurrentindex, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -208,19 +210,29 @@ public class StudentGraphicUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_txttest3ActionPerformed
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-        // TODO add your handling code here:
+        StudentPopup spop = new StudentPopup(this, true);
+        spop.setModal(true);
+        spop.setLocationRelativeTo(this);
+        spop.setVisible(true);
+        //this code won't run until popup is disposed
+        String name = spop.getName();
+        txtname.setText(name);
+        int test[] = spop.getMarks();
+        txttest1.setText("" + test[0]);
+        txttest2.setText("" + test[1]);
+        txttest3.setText("" + test[2]);
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void btnmodifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodifyActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnmodifyActionPerformed
 
     private void btnleftleftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftleftActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnleftleftActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -250,7 +262,7 @@ public class StudentGraphicUserInterface extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new StudentGraphicUserInterface().setVisible(true);
