@@ -94,7 +94,6 @@ public class Student {
     	
 	if (test[0] < 0 || test[0] > 100 || test[1] < 0 || test[1] > 100 || test[2] < 0 || test[2] > 100) 
     		message += "\nAt least one mark is out of range, please re-enter all data";
-	
 	return message;
     	}
  }
