@@ -39,7 +39,7 @@
                       </Group>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextField1" max="32767" attributes="0"/>
+                          <Component id="lbltotal" max="32767" attributes="0"/>
                           <Component id="lblmoney" pref="61" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -57,7 +57,7 @@
                       <Component id="lbldie2" pref="82" max="32767" attributes="0"/>
                       <Component id="lbldie1" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jTextField1" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="lbltotal" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -88,6 +88,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbldie1">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -117,8 +118,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnquitActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="lbltotal">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -126,7 +128,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lbltotalActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblmoney">

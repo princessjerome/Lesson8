@@ -3,8 +3,15 @@ import java.net.URL;
 
 public class CrapsGUI extends javax.swing.JFrame {
 
+    Craps game;
+    int money;
+    boolean newgame;
+    
     public CrapsGUI() {
         initComponents();
+        game = new Craps();
+        money = 100;
+        newgame = true;
     }
 
     @SuppressWarnings("unchecked")
@@ -15,7 +22,7 @@ public class CrapsGUI extends javax.swing.JFrame {
         lbldie1 = new javax.swing.JLabel();
         lbldie2 = new javax.swing.JLabel();
         btnquit = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        lbltotal = new javax.swing.JTextField();
         lblmoney = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtgame = new javax.swing.JTextArea();
@@ -30,6 +37,7 @@ public class CrapsGUI extends javax.swing.JFrame {
             }
         });
 
+        lbldie1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbldie1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbldie2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -42,10 +50,11 @@ public class CrapsGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        lbltotal.setEditable(false);
+        lbltotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lbltotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                lbltotalActionPerformed(evt);
             }
         });
 
@@ -74,7 +83,7 @@ public class CrapsGUI extends javax.swing.JFrame {
                             .addComponent(btnquit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
+                            .addComponent(lbltotal)
                             .addComponent(lblmoney, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))))
                 .addGap(23, 23, 23))
         );
@@ -86,7 +95,7 @@ public class CrapsGUI extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lbldie2, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                         .addComponent(lbldie1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnroll, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -101,23 +110,44 @@ public class CrapsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrollActionPerformed
-        // TODO add your handling code here:
-        int num1 = (int)(Math.random()*6)+1;
-        URL file1 = getClass().getResource("d" + num1+ ".JPG");
-        lbldie1.setIcon(new ImageIcon(file1));
+        //roll both die assume our Craps game is called 'game'
+        game.roll();
+        //display die images
+        lbldie1.setIcon(game.getDiePic(1));
+        lbldie2.setIcon(game.getDiePic(2));
+        //new game sets text, etc //ongoing game appends to text area
+        if(newgame){
+            txtgame.setText("New Game\n----\nYou rolled a: "+game.getTotal());
+            newgame=false; //make it so its not a new game anymore
+            money-=5; //charge 5 for new game
+            lblmoney.setText("$"+money);//update money display
+        }
+        else //ongoing game
+            txtgame.append("\nYou rolled a: "+game.getTotal());
         
-        int num2 = (int)(Math.random()*6)+1;
-        URL file2 = getClass().getResource("d" + num2+ ".JPG");
-        lbldie2.setIcon(new ImageIcon(file2));
+        //update big total number at the side
+        lbltotal.setText(""+game.getTotal());
+        //determine if game.hasWon() or game.hasLost()
+        if(game.hasWon()){
+           txtgame.append("\nYou won!\nPress roll die to play again.\n");
+           money+=15;
+           lblmoney.setText("$"+money);
+           newgame=true;
+        }
+        if(game.hasLost()){
+           txtgame.append("\nYou lost!\nPress roll die to play again.\n");
+           newgame=true;
+        }
+        
     }//GEN-LAST:event_btnrollActionPerformed
 
     private void btnquitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnquitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnquitActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void lbltotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbltotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_lbltotalActionPerformed
 
     
     public static void main(String args[]) {
@@ -155,10 +185,10 @@ public class CrapsGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnquit;
     private javax.swing.JButton btnroll;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbldie1;
     private javax.swing.JLabel lbldie2;
     private javax.swing.JLabel lblmoney;
+    private javax.swing.JTextField lbltotal;
     private javax.swing.JTextArea txtgame;
     // End of variables declaration//GEN-END:variables
 }

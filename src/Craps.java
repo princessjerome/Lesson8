@@ -31,15 +31,22 @@ public class Craps {
     
     public boolean hasWon()
     {
-        if(rollnum==2) return (getTotal()==7 || getTotal()==11);
-        else return (point == getTotal());
+        if(rollnum==1){
+            return (getTotal()==7 || getTotal()==11);
+        }
+        else{
+            return (point == getTotal());
+        }
     }
     
     public boolean hasLost()
     {
-        if(rollnum==1) return (getTotal()==2||getTotal()==3||getTotal()==10);
-        else 
+        if(rollnum==1){
+            return (getTotal()==2||getTotal()==3||getTotal()==10);
+        }
+        else{
             return (getTotal()==7);
+        } 
     }
     
     public int getTotal()
