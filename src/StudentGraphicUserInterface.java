@@ -105,6 +105,11 @@ public class StudentGraphicUserInterface extends javax.swing.JFrame {
         });
 
         btnrightright.setText(">>");
+        btnrightright.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrightrightActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Count");
 
@@ -206,6 +211,11 @@ public class StudentGraphicUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_txttest3ActionPerformed
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
+        if(size>=10){
+            JOptionPane.showMessageDialog(this,"There are already 10 students. You cannot add anymore.");
+            
+        }
+        else{
         StudentPopup spop = new StudentPopup(this, true);
         spop.setModal(true);
         spop.setLocationRelativeTo(this);
@@ -224,30 +234,52 @@ public class StudentGraphicUserInterface extends javax.swing.JFrame {
             }
             else
                 JOptionPane.showMessageDialog(this,em); 
-            
+        }    
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void btnmodifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodifyActionPerformed
+        StudentPopup spop = new StudentPopup(this, true);//popup form
+        spop.setForm(s[currentstudent]);//put student into form
+        spop.setModal(true);//take control
+        spop.setLocationRelativeTo(this);//over this one
+        spop.setVisible(true);
         
+        Student temp = spop.getStudent();
+            
+            String em = temp.validateData();
+            
+            if(em == null)
+            {
+                s[currentstudent] = temp;
+                showStudent();
+            }
+            else
+                JOptionPane.showMessageDialog(this,em);
     }//GEN-LAST:event_btnmodifyActionPerformed
 
     private void btnleftleftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftleftActionPerformed
-        
+        currentstudent=0;
+        showStudent();
     }//GEN-LAST:event_btnleftleftActionPerformed
 
     private void btnprevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprevActionPerformed
-        if (currentstudent > 0){
+       if (currentstudent > 0){
             currentstudent--;
             showStudent();
         }
     }//GEN-LAST:event_btnprevActionPerformed
 
     private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
-        if (currentstudent < size-1 && currentstudent > -1){
+         if (currentstudent < size-1 && currentstudent > -1){
             currentstudent++;
             showStudent();
         }
     }//GEN-LAST:event_btnnextActionPerformed
+
+    private void btnrightrightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightrightActionPerformed
+        currentstudent=size-1;
+        showStudent();
+    }//GEN-LAST:event_btnrightrightActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,7 +323,7 @@ public class StudentGraphicUserInterface extends javax.swing.JFrame {
         txttest3.setText(""  + s[currentstudent].getMark(3));
         lblaverage.setText("" + s[currentstudent].getAverage());
         lblcount.setText("" + size);
-        lblindex.setText("" + currentstudent);
+        lblindex.setText("" + (currentstudent + 1));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

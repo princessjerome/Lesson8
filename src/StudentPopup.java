@@ -116,16 +116,18 @@ public class StudentPopup extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
-                DefaultTableModel model = (DefaultTableModel)tblmarks.getModel(); 
+        int marks[]=new int[3];
+        String name = txtname.getText();
         try
         {
-        String name = txtname.getText();
-        int marks[] = new int[3];
         for(int x = 0;x < 3;x++){
-            marks[x] = Integer.parseInt(model.getValueAt(0,x).toString());
+            marks[x] = Integer.parseInt(tblmarks.getValueAt(0,x).toString());
         }              
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Fill all fields");
+            return;
+        }
         temp = new Student(name,marks);
-        }catch(Exception e){JOptionPane.showMessageDialog(this, "Fill all fields");}
         this.dispose();
     }//GEN-LAST:event_btnokActionPerformed
     
@@ -133,6 +135,13 @@ public class StudentPopup extends javax.swing.JDialog {
         return temp;
     }
     
+    public void setForm(Student s){
+        DefaultTableModel model = (DefaultTableModel)(tblmarks.getModel());
+        txtname.setText(s.getName());
+        model.setValueAt(s.getMark(1), 0,0);
+        model.setValueAt(s.getMark(2), 0,1);
+        model.setValueAt(s.getMark(3), 0,2);
+    }   
     /**
      * @param args the command line arguments
      */
